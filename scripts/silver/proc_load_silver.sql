@@ -1,9 +1,30 @@
--- =============================================
--- Procedure: silver.load_silver
--- Author: Mayuresh Chourikar
--- Description: Cleans and transforms data from Bronze to Silver layer
--- Last Modified: 2025-06-14
--- =============================================
+/* =============================================
+Procedure : silver.load_silver
+   Author    : Mayuresh Chourikar
+   Created   : 2025-06-16
+   Purpose   : Cleans and transforms data from Bronze to Silver layer
+   Description:
+     - Standardizes and deduplicates CRM data
+     - Formats dates and fixes invalid values in sales details
+     - Maps ERP codes to readable forms
+     - Ensures clean, analytics-ready data
+
+   Parameters: None
+
+   Steps Performed:
+     1. silver.crm_cust_info      → deduplication + formatting
+     2. silver.crm_prd_info       → key parsing + date adjustment
+     3. silver.crm_sales_details  → date conversion + sales validation
+     4. silver.erp_cust_az12      → ID & gender normalization
+     5. silver.erp_loc_a101       → country mapping
+     6. silver.erp_px_cat_g1v2    → direct copy
+
+   Error Handling:
+     - TRY...CATCH block logs full error message, number, and state
+
+   Execution:
+     EXEC silver.load_silver;
+============================================= */
 CREATE OR ALTER PROCEDURE silver.load_silver
 AS
 BEGIN
